@@ -14,7 +14,7 @@ diesel::table! {
         id -> Int4,
         name -> Varchar,
         cable_gender -> Gender,
-        image -> Nullable<Bytea>,
+        image -> Bytea,
     }
 }
 

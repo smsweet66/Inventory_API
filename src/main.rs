@@ -1,12 +1,20 @@
 use actix_web::{App, HttpServer, web::{self, Data, JsonConfig}};
 use diesel::{r2d2::{ConnectionManager, Pool}, PgConnection};
 use dotenv::dotenv;
+use routes::cable_type_routes;
 
-use models;
+mod schema;
+
+mod models;
+mod routes;
+mod handlers;
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
 	dotenv().ok();
+
+	std::env::set_var("RUST_LOG", "debug");
+    env_logger::init();
 
 	let database_url = std::env::var("DATABASE_URL").expect("DATABASE_URL must be set");
     let pool = Pool::builder()
@@ -16,8 +24,10 @@ async fn main() -> std::io::Result<()> {
 	HttpServer::new(move || {
 		App::new()
 			.app_data(Data::new(pool.clone()))
+			.app_data(JsonConfig::default())
+			.service(web::scope("/cable_type").configure(cable_type_routes::config))
 	})
-	.bind("localhost:8080")?
+	.bind(("0.0.0.0", 8080))?
 	.run()
 	.await
 }

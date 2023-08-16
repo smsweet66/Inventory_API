@@ -5,7 +5,7 @@ create table cable_types (
 	id serial primary key,
 	name varchar not null,
 	cable_gender gender not null,
-	image bytea
+	image bytea not null
 );
 
 create table cables (
