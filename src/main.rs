@@ -1,7 +1,7 @@
 use actix_web::{App, HttpServer, web::{self, Data, JsonConfig}};
 use diesel::{r2d2::{ConnectionManager, Pool}, PgConnection};
 use dotenv::dotenv;
-use routes::cable_type_routes;
+use routes::*;
 
 mod schema;
 
@@ -26,6 +26,7 @@ async fn main() -> std::io::Result<()> {
 			.app_data(Data::new(pool.clone()))
 			.app_data(JsonConfig::default())
 			.service(web::scope("/cable_type").configure(cable_type_routes::config))
+			.service(web::scope("/cable").configure(cable_routes::config))
 	})
 	.bind(("0.0.0.0", 8080))?
 	.run()
