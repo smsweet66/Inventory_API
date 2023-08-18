@@ -769,7 +769,6 @@ dependencies = [
  "dotenv",
  "env_logger",
  "serde",
- "serde_json",
 ]
 
 [[package]]

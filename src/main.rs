@@ -28,7 +28,7 @@ async fn main() -> std::io::Result<()> {
 			.service(web::scope("/cable_type").configure(cable_type_routes::config))
 			.service(web::scope("/cable").configure(cable_routes::config))
 	})
-	.bind(("0.0.0.0", 8080))?
+	.bind(("127.0.0.1", 8080))?
 	.run()
 	.await
 }
