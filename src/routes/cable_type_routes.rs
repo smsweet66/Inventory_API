@@ -39,7 +39,7 @@ pub async fn delete_cable_type(db: DB, id: web::Path<i32>) -> impl Responder {
     let res = delete_cable_type_handler(db, id.into_inner()).await;
 
     match res {
-        Ok(_) => HttpResponse::Ok().body("Cable type deleted"),
+        Ok(_) => HttpResponse::Ok().body("Successfully deleted cable type"),
         Err(e) => HttpResponse::InternalServerError().body(e.message())
     }
 }

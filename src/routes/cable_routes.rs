@@ -39,7 +39,7 @@ pub async fn delete_cable(db: DB, id: web::Path<i32>) -> impl Responder {
     let res = delete_cable_handler(db, id.into_inner()).await;
 
     match res {
-        Ok(cable) => HttpResponse::Ok().json(cable),
+        Ok(_) => HttpResponse::Ok().body("Successfully deleted cable"),
         Err(e) => HttpResponse::InternalServerError().body(e.message())
     }
 }
